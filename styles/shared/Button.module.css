@@ -1,0 +1,22 @@
+.button {
+  cursor: pointer;
+  color: orangered;
+  font-size: 14px;
+  background-color: #ffffff;
+  border: 1px solid orangered;
+  border-radius: 2px;
+  height: 30px;
+}
+
+.button:disabled {
+  cursor: default;
+  color: gray;
+  background-color: #ffffff;
+  border: none;
+}
+
+.button:not(:disabled):hover {
+  background-color: black;
+  border: none;
+  font-weight: 600;
+}

@@ -1,0 +1,41 @@
+.container {
+  max-width: 300px;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  cursor: default;
+}
+
+.container:hover {
+cursor: pointer;
+color: orangered;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  padding-right: 20px;
+}
+
+.title {
+  padding: 10px 0 5px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.instruments {
+  display: flex;
+  color: grey;
+  padding-bottom: 10px;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.instrument {
+  padding-right: 10px;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+}

@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.titleLine {
+  max-width: 300px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.titleLine button {
+  width: 100px;
+  height: 40px;
+}
+
+.list {
+  width: 50%;
+  height: 100%;
+  overflow-y: scroll;
+  padding-bottom: 20px;
+}
+
+.list:first-child {
+  width: 70%;
+  margin-right: 20px;
+}
+
+.list:last-child {
+  width: 30%;
+}
+
+.list ul {
+  margin-bottom: 20px;
+}
+
+.createButton {
+  position: fixed;
+  top: 30px;
+  left: 30px;
+}

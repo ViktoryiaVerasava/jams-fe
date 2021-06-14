@@ -1,0 +1,17 @@
+.container {
+  width: 400px;
+}
+
+.form {
+  display: flex;
+}
+
+.form > *{
+  margin-right: 10px;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  padding-top: 10px;
+}

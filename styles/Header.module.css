@@ -1,0 +1,13 @@
+.header {
+  position: fixed;
+  top: 10px;
+}
+
+.title,
+.description {
+  text-align: center;
+}
+
+.description {
+  font-size: 13px;
+}
