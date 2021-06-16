@@ -6,12 +6,17 @@
   display: flex;
 }
 
-.form > *{
+.form > div {
   margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.field {
+  height: 30px;
 }
 
 .error {
   color: red;
-  font-size: 14px;
-  padding-top: 10px;
+  font-size: 12px;
 }
