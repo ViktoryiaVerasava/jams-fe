@@ -26,7 +26,7 @@ const Jam = ({ jam, my, available }) => {
     await fetch(`${BE_URL}/jams/${jam.id}/start`, {
       method: "POST",
     });
-    setStarting(false);
+    router.reload();
   };
 
   const handleJoinJamClick = async (event) => {
@@ -35,7 +35,7 @@ const Jam = ({ jam, my, available }) => {
     await fetch(`${BE_URL}/jams/${jam.id}`, {
       method: "PUT",
     });
-    router.push("/");
+    router.reload();
   };
 
   return (

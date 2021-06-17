@@ -8,11 +8,13 @@ import Jam from "./Jam";
 import styles from "../styles/Jams.module.css";
 import { JamsApi } from "../services";
 
-const Jams = ({ type, title }) => {
+const Jams = ({ type }) => {
   const [jams, setJams] = useState([]);
   const [innerType, setInnerType] = useState(type);
   const [loading, setLoading] = useState([]);
   const [alternativeTypeLabel, setAlternativeTypeLabel] = useState("");
+  const [title, setTitle] = useState("");
+
   const router = useRouter();
 
   const changeQueryParams = () => {
@@ -34,18 +36,22 @@ const Jams = ({ type, title }) => {
     switch (type) {
       case JamType.My:
         jams = await JamsApi.getJams(JamType.My);
+        setTitle("You are hosting these jams:");
         setAlternativeTypeLabel(JamType.Participations);
         break;
       case JamType.Participations:
         jams = await JamsApi.getJams(JamType.Participations);
+        setTitle("You are participating in these jams:");
         setAlternativeTypeLabel(JamType.My);
         break;
       case JamType.Available:
         jams = await JamsApi.getJams(JamType.Available);
+        setTitle("Pending jams available for you to join:");
         setAlternativeTypeLabel(JamType.All);
         break;
       default:
         jams = await JamsApi.getJams();
+        setTitle("All existing jams:");
         setAlternativeTypeLabel(JamType.Available);
         break;
     }
@@ -57,15 +63,15 @@ const Jams = ({ type, title }) => {
   return (
     <div className={styles.list}>
       <div>
+        <h5 className={styles.titleLine}>
+          {title}{" "}
+          <Button
+            label={`Show ${alternativeTypeLabel}`}
+            onClick={changeQueryParams}
+          ></Button>
+        </h5>
         {jams.length ? (
           <>
-            <h5 className={styles.titleLine}>
-              {title}{" "}
-              <Button
-                label={`Show ${alternativeTypeLabel}`}
-                onClick={changeQueryParams}
-              ></Button>
-            </h5>
             {loading ? (
               <h5>loading ... </h5>
             ) : (
@@ -87,11 +93,7 @@ const Jams = ({ type, title }) => {
             )}
           </>
         ) : (
-          <h5 className={styles.jams__empty}>
-            {type === "my"
-              ? "You haven't hosted any jam yet"
-              : "Jams list is empty"}
-          </h5>
+          <h5 className={styles.jams__empty}>Jams list is empty</h5>
         )}
       </div>
     </div>
