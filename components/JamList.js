@@ -8,7 +8,7 @@ import Jam from "./Jam";
 import styles from "../styles/Jams.module.css";
 import { JamsApi } from "../services";
 
-const Jams = ({ type }) => {
+const Jams = ({ type, reloadJams }) => {
   const [jams, setJams] = useState([]);
   const [innerType, setInnerType] = useState(type);
   const [loading, setLoading] = useState([]);
@@ -58,7 +58,7 @@ const Jams = ({ type }) => {
     setJams(jams);
     setInnerType(type);
     setLoading(false);
-  }, [type]);
+  }, [type, reloadJams]);
 
   return (
     <div className={styles.list}>
@@ -84,6 +84,7 @@ const Jams = ({ type }) => {
                           jam={jam}
                           my={innerType === "my"}
                           available={innerType === "available"}
+                          reloadJams={reloadJams}
                         />
                       </a>
                     </Link>

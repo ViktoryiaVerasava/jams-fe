@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import styles from "../styles/Jam.module.css";
 import Button from "./shared/Button";
 
-const Jam = ({ jam, my, available }) => {
+const Jam = ({ jam, my, available, reloadJams }) => {
   const BE_URL = process.env.NEXT_PUBLIC_BE_URL;
   const router = useRouter();
 
@@ -26,7 +26,7 @@ const Jam = ({ jam, my, available }) => {
     await fetch(`${BE_URL}/jams/${jam.id}/start`, {
       method: "POST",
     });
-    router.reload();
+    reloadJams();
   };
 
   const handleJoinJamClick = async (event) => {
@@ -35,7 +35,7 @@ const Jam = ({ jam, my, available }) => {
     await fetch(`${BE_URL}/jams/${jam.id}`, {
       method: "PUT",
     });
-    router.reload();
+    reloadJams();
   };
 
   return (

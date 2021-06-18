@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import Button from "../components/shared/Button";
 import Jams from "../components/JamList";
@@ -9,6 +9,7 @@ import styles from "../styles/Jams.module.css";
 export default function Home() {
   const [leftSectionType, setLeftSectionType] = useState("my");
   const [rightSectionType, setRightSectionType] = useState("all");
+  const [_, setUpdateValue] = useState(0);
 
   const router = useRouter();
 
@@ -19,10 +20,14 @@ export default function Home() {
     setRightSectionType(!!available ? "available" : "all");
   }, [router.query]);
 
+  const refreshJams = () => {
+    setUpdateValue((value) => value + 1);
+  };
+
   return (
     <div className={styles.container}>
-      <Jams type={leftSectionType} />
-      <Jams type={rightSectionType} />
+      <Jams type={leftSectionType} reloadJams={refreshJams} />
+      <Jams type={rightSectionType} reloadJams={refreshJams} />
       <div className={styles.createButton}>
         <Link href="/songs">
           <a>
