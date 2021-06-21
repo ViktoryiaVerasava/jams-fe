@@ -20,7 +20,8 @@ globalThis.fetch = async function () {
     resp = await constantMock.apply(this, arguments);
   }
   const status = await resp.status;
-  if (status === 401) {
+  if (status === 401 && typeof window !== "undefined") {
+    localStorage?.removeItem("token");
     window.location.href = "./login";
   } else {
     return resp;

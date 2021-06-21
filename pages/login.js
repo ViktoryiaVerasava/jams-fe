@@ -31,7 +31,9 @@ const Login = () => {
       email,
       password,
     });
-    setToken(resp.accessToken);
+    if (resp.accessToken) {
+      setToken(resp.accessToken);
+    }
     setMessage(resp.message);
   };
 
