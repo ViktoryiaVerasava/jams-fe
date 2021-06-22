@@ -1,10 +1,11 @@
-import styles from "../styles/login.module.css";
-import { UsersApi } from "../services";
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+import styles from "../styles/login.module.css";
+import { UsersApi } from "../services";
+import TopLink from "../components/shared/TopLink";
 import Button from "../components/shared/Button";
 
 const Login = () => {
@@ -39,6 +40,7 @@ const Login = () => {
 
   return (
     <div className={styles.container}>
+      <TopLink link="/register" label="Register" />
       <h5>Please sign in</h5>
       <Formik
         initialValues={{ email: "", password: "" }}
@@ -56,12 +58,18 @@ const Login = () => {
           setSubmitting(false);
         }}
       >
-        {({ isSubmitting }) => (
-          <Form className={styles.form}>
+        {({ isSubmitting, handleChange }) => (
+          <Form
+            className={styles.form}
+            onChange={(e) => {
+              setMessage("");
+              handleChange(e);
+            }}
+          >
             <div>
               <Field
                 name="email"
-                placeholder="email"
+                placeholder="Email"
                 className={styles.field}
               />
               <ErrorMessage
@@ -74,7 +82,7 @@ const Login = () => {
               <Field
                 type="password"
                 name="password"
-                placeholder="password"
+                placeholder="Password"
                 className={styles.field}
               />
               <ErrorMessage

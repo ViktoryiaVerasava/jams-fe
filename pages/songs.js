@@ -1,5 +1,5 @@
 import Song from "../components/Song";
-import ToMain from "../components/shared/ToMain";
+import TopLink from "../components/shared/TopLink";
 import styles from "../styles/songs.module.css";
 import { SongsApi } from "../services";
 
@@ -16,7 +16,7 @@ const Songs = ({ songs }) => {
           ))}
         </ul>
       </div>
-      <ToMain />
+      <TopLink />
     </div>
   );
 };

@@ -11,7 +11,7 @@ import { JamsApi } from "../services";
 const Jams = ({ type, reloadJams }) => {
   const [jams, setJams] = useState([]);
   const [innerType, setInnerType] = useState(type);
-  const [loading, setLoading] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [alternativeTypeLabel, setAlternativeTypeLabel] = useState("");
   const [title, setTitle] = useState("");
 
@@ -31,33 +31,33 @@ const Jams = ({ type, reloadJams }) => {
   };
 
   useEffect(async () => {
-    let jams;
+    let updatedJams;
     setLoading(true);
     switch (type) {
       case JamType.My:
-        jams = await JamsApi.getJams(JamType.My);
         setTitle("You are hosting these jams:");
         setAlternativeTypeLabel(JamType.Participations);
+        updatedJams = await JamsApi.getJams(JamType.My);
         break;
       case JamType.Participations:
-        jams = await JamsApi.getJams(JamType.Participations);
         setTitle("You are participating in these jams:");
         setAlternativeTypeLabel(JamType.My);
+        updatedJams = await JamsApi.getJams(JamType.Participations);
         break;
       case JamType.Available:
-        jams = await JamsApi.getJams(JamType.Available);
         setTitle("Pending jams available for you to join:");
         setAlternativeTypeLabel(JamType.All);
+        updatedJams = await JamsApi.getJams(JamType.Available);
         break;
       default:
-        jams = await JamsApi.getJams();
         setTitle("All existing jams:");
         setAlternativeTypeLabel(JamType.Available);
+        updatedJams = await JamsApi.getJams();
         break;
     }
-    setJams(jams);
-    setInnerType(type);
     setLoading(false);
+    setInnerType(type);
+    setJams(updatedJams);
   }, [type, reloadJams]);
 
   return (

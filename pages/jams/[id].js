@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import ToMain from "../../components/shared/ToMain";
+import TopLink from "../../components/shared/TopLink";
 
 const jam = () => {
   const router = useRouter();
@@ -7,7 +7,7 @@ const jam = () => {
   return (
     <>
       <div>This is a jam #{id}</div>
-      <ToMain />
+      <TopLink />
     </>
   );
 };

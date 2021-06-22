@@ -9,7 +9,7 @@ import styles from "../styles/Jams.module.css";
 export default function Home() {
   const [leftSectionType, setLeftSectionType] = useState("my");
   const [rightSectionType, setRightSectionType] = useState("all");
-  const [_, setUpdateValue] = useState(0);
+  const [updateValue, setUpdateValue] = useState(0);
 
   const router = useRouter();
 
@@ -20,9 +20,9 @@ export default function Home() {
     setRightSectionType(!!available ? "available" : "all");
   }, [router.query]);
 
-  const refreshJams = () => {
-    setUpdateValue((value) => value + 1);
-  };
+  const refreshJams = useCallback(() => {
+    setUpdateValue(updateValue+1);
+  }, [updateValue]);
 
   return (
     <div className={styles.container}>
