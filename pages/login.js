@@ -7,6 +7,7 @@ import styles from "../styles/login.module.css";
 import { UsersApi } from "../services";
 import TopLink from "../components/shared/TopLink";
 import Button from "../components/shared/Button";
+import { getAuthServerSidePropsForSignInUpRoutes } from "../utils/getAuthServerSideProps";
 
 const Login = () => {
   const [token, setToken] = useState("");
@@ -16,16 +17,9 @@ const Login = () => {
 
   useEffect(() => {
     if (!!token) {
-      localStorage.setItem("token", token);
       router.push("/");
     }
   }, [token]);
-
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      router.push("/");
-    }
-  }, []);
 
   const signIn = async ({ email, password }) => {
     const resp = await UsersApi.signIn({
@@ -101,3 +95,5 @@ const Login = () => {
 };
 
 export default Login;
+
+export const getServerSideProps = getAuthServerSidePropsForSignInUpRoutes;

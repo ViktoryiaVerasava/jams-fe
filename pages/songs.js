@@ -2,8 +2,9 @@ import Song from "../components/Song";
 import TopLink from "../components/shared/TopLink";
 import styles from "../styles/songs.module.css";
 import { SongsApi } from "../services";
+import { getAuthServerSideProps } from "../utils/getAuthServerSideProps";
 
-const Songs = ({ songs }) => {
+const Songs = ({ songs, token }) => {
   return (
     <div className={styles.container}>
       <h5>Songs available:</h5>
@@ -11,7 +12,7 @@ const Songs = ({ songs }) => {
         <ul>
           {songs.map((song) => (
             <li key={song.id}>
-              <Song song={song} />
+              <Song song={song} token={token} />
             </li>
           ))}
         </ul>
@@ -23,9 +24,11 @@ const Songs = ({ songs }) => {
 
 export default Songs;
 
-export const getStaticProps = async () => {
-  const songs = await SongsApi.getAllSongs();
+export const getServerSideProps = async (ctx) => {
+  const songs = await SongsApi.getAllSongs(ctx);
+  const authProps = await getAuthServerSideProps(ctx);
   return {
-    props: { songs },
+    ...authProps,
+    props: { ...authProps.props, songs },
   };
 };

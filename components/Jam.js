@@ -3,8 +3,9 @@ import { useRouter } from "next/router";
 
 import styles from "../styles/Jam.module.css";
 import Button from "./shared/Button";
+import { JamsApi } from "../services";
 
-const Jam = ({ jam, my, available, reloadJams }) => {
+const Jam = ({ jam, my, available, reloadJams, token }) => {
   const BE_URL = process.env.NEXT_PUBLIC_BE_URL;
   const router = useRouter();
 
@@ -23,18 +24,14 @@ const Jam = ({ jam, my, available, reloadJams }) => {
   const handleStartJamClick = async (event) => {
     event.preventDefault();
     setStarting(true);
-    await fetch(`${BE_URL}/jams/${jam.id}/start`, {
-      method: "POST",
-    });
+    await JamsApi.startJam(jam.id, token);
     reloadJams();
   };
 
   const handleJoinJamClick = async (event) => {
     event.preventDefault();
     setJoining(true);
-    await fetch(`${BE_URL}/jams/${jam.id}`, {
-      method: "PUT",
-    });
+    await JamsApi.joinJam(jam.id, token);
     reloadJams();
   };
 

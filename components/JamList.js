@@ -8,7 +8,7 @@ import Jam from "./Jam";
 import styles from "../styles/Jams.module.css";
 import { JamsApi } from "../services";
 
-const Jams = ({ type, reloadJams }) => {
+const Jams = ({ type, reloadJams, token }) => {
   const [jams, setJams] = useState([]);
   const [innerType, setInnerType] = useState(type);
   const [loading, setLoading] = useState(false);
@@ -37,22 +37,22 @@ const Jams = ({ type, reloadJams }) => {
       case JamType.My:
         setTitle("You are hosting these jams:");
         setAlternativeTypeLabel(JamType.Participations);
-        updatedJams = await JamsApi.getJams(JamType.My);
+        updatedJams = await JamsApi.getJams(JamType.My, token);
         break;
       case JamType.Participations:
         setTitle("You are participating in these jams:");
         setAlternativeTypeLabel(JamType.My);
-        updatedJams = await JamsApi.getJams(JamType.Participations);
+        updatedJams = await JamsApi.getJams(JamType.Participations, token);
         break;
       case JamType.Available:
         setTitle("Pending jams available for you to join:");
         setAlternativeTypeLabel(JamType.All);
-        updatedJams = await JamsApi.getJams(JamType.Available);
+        updatedJams = await JamsApi.getJams(JamType.Available, token);
         break;
       default:
         setTitle("All existing jams:");
         setAlternativeTypeLabel(JamType.Available);
-        updatedJams = await JamsApi.getJams();
+        updatedJams = await JamsApi.getJams(JamType.All, token);
         break;
     }
     setLoading(false);
@@ -85,6 +85,7 @@ const Jams = ({ type, reloadJams }) => {
                           my={innerType === "my"}
                           available={innerType === "available"}
                           reloadJams={reloadJams}
+                          token={token}
                         />
                       </a>
                     </Link>

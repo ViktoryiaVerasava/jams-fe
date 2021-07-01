@@ -1,23 +1,18 @@
 import { useState } from "react";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 import styles from "../styles/Song.module.css";
 import Button from "./shared/Button";
+import { JamsApi } from "../services";
 
-const Song = ({ song }) => {
-  const BE_URL = process.env.NEXT_PUBLIC_BE_URL;
-
+const Song = ({ song, token }) => {
   let [loading, setLoading] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
 
   const createJam = async () => {
     setLoading(true);
-    await fetch(`${BE_URL}/jams`, {
-      method: "POST",
-      body: JSON.stringify({ songId: song.id }),
-      headers: { "Content-Type": "application/json" },
-    });
+    await JamsApi.createJam(song.id, token);
     setLoading(false);
-    router.push('/');
+    router.push("/");
   };
 
   return (

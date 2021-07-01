@@ -7,6 +7,7 @@ import styles from "../styles/login.module.css";
 import { UsersApi } from "../services";
 import TopLink from "../components/shared/TopLink";
 import Button from "../components/shared/Button";
+import { getAuthServerSidePropsForSignInUpRoutes } from "../utils/getAuthServerSideProps";
 
 const formInitValues = {
   firstName: "",
@@ -19,14 +20,6 @@ const formInitValues = {
 
 const Register = () => {
   const [message, setMessage] = useState("");
-
-  const router = useRouter();
-
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      router.push("/login");
-    }
-  }, []);
 
   const signUp = async ({
     firstName,
@@ -170,3 +163,5 @@ const Register = () => {
 };
 
 export default Register;
+
+export const getServerSideProps = getAuthServerSidePropsForSignInUpRoutes;

@@ -3,6 +3,7 @@ const BE_URL = process.env.NEXT_PUBLIC_BE_URL;
 const signIn = async ({ email, password }) => {
   const signInRespose = await fetch(`${BE_URL}/users/auth/signin`, {
     method: "POST",
+    credentials: 'include',
     body: JSON.stringify({ email: email, password: password }),
     headers: { "Content-Type": "application/json" },
   });
