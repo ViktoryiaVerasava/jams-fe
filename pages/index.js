@@ -44,6 +44,7 @@ function Home({ token }) {
       <div className={styles.typeSwitch}>
         {typeLabels.map((typeLabel) => (
           <Button
+            key={JamType[typeLabel]}
             label={`Show ${typeLabel}`}
             onClick={() => changeQueryParams(JamType[typeLabel])}
             disabled={jamsType === JamType[typeLabel]}
