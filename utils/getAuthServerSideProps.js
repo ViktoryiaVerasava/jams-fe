@@ -13,7 +13,6 @@ const getAuthServerSideProps = async (ctx) => {
   const token = getTokenFromCtx(ctx);
   const isAuthenticated = getIsAuthenticated(token);
   if (isAuthenticated?.id) {
-    console.log(ctx);
     return { props: { token } };
   } else {
     return {
