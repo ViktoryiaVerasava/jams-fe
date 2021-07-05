@@ -1,5 +1,4 @@
 import Song from "../components/Song";
-import TopLink from "../components/shared/TopLink";
 import styles from "../styles/songs.module.css";
 import { SongsApi } from "../services";
 import { getAuthServerSideProps } from "../utils/getAuthServerSideProps";
@@ -17,7 +16,6 @@ const Songs = ({ songs, token }) => {
           ))}
         </ul>
       </div>
-      <TopLink />
     </div>
   );
 };

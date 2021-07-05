@@ -1,8 +1,6 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
-import Button from "./shared/Button";
 import JamType from "../enums/JamType.enum";
 import Jam from "./Jam";
 import styles from "../styles/Jams.module.css";
@@ -12,23 +10,7 @@ const Jams = ({ type, reloadJams, token }) => {
   const [jams, setJams] = useState([]);
   const [innerType, setInnerType] = useState(type);
   const [loading, setLoading] = useState(false);
-  const [alternativeTypeLabel, setAlternativeTypeLabel] = useState("");
   const [title, setTitle] = useState("");
-
-  const router = useRouter();
-
-  const changeQueryParams = () => {
-    const query = router.query;
-    delete query[type];
-    const queryString = Object.keys(query)
-      ?.reduce((el, acc) => {
-        return `${acc}${el}=${true}&`;
-      }, "")
-      .slice(0, -1);
-    router.push(
-      `?${queryString}${queryString ? "&" : ""}${alternativeTypeLabel}=true`
-    );
-  };
 
   useEffect(async () => {
     let updatedJams;
@@ -36,22 +18,18 @@ const Jams = ({ type, reloadJams, token }) => {
     switch (type) {
       case JamType.My:
         setTitle("You are hosting these jams:");
-        setAlternativeTypeLabel(JamType.Participations);
         updatedJams = await JamsApi.getJams(JamType.My, token);
         break;
       case JamType.Participations:
         setTitle("You are participating in these jams:");
-        setAlternativeTypeLabel(JamType.My);
         updatedJams = await JamsApi.getJams(JamType.Participations, token);
         break;
       case JamType.Available:
         setTitle("Pending jams available for you to join:");
-        setAlternativeTypeLabel(JamType.All);
         updatedJams = await JamsApi.getJams(JamType.Available, token);
         break;
       default:
         setTitle("All existing jams:");
-        setAlternativeTypeLabel(JamType.Available);
         updatedJams = await JamsApi.getJams(JamType.All, token);
         break;
     }
@@ -62,14 +40,8 @@ const Jams = ({ type, reloadJams, token }) => {
 
   return (
     <div className={styles.list}>
-      <div>
-        <h5 className={styles.titleLine}>
-          {title}{" "}
-          <Button
-            label={`Show ${alternativeTypeLabel}`}
-            onClick={changeQueryParams}
-          ></Button>
-        </h5>
+      <>
+        <h5 className={styles.titleLine}>{title} </h5>
         {jams.length ? (
           <>
             {loading ? (
@@ -97,7 +69,7 @@ const Jams = ({ type, reloadJams, token }) => {
         ) : (
           <h5 className={styles.jams__empty}>Jams list is empty</h5>
         )}
-      </div>
+      </>
     </div>
   );
 };

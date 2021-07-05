@@ -153,7 +153,9 @@ const Register = () => {
                 className={styles.error}
               />
             </div>
-            <Button label="Register" disabled={isSubmitting} />
+            <div className={styles.button}>
+              <Button label="Register" disabled={isSubmitting} />
+            </div>
           </Form>
         )}
       </Formik>

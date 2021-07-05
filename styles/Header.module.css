@@ -11,3 +11,9 @@
 .description {
   font-size: 13px;
 }
+
+.menu {
+  position: fixed;
+  top: 0;
+  left:0;
+}

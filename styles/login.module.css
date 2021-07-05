@@ -1,5 +1,5 @@
 .container {
-  width: 400px;
+  overflow-y: auto;
 }
 
 .form {
@@ -21,4 +21,8 @@
 .error {
   color: red;
   font-size: 12px;
+}
+
+.button:last-child {
+  margin-bottom: 20px;
 }
